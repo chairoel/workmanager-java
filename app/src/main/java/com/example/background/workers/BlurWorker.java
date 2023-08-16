@@ -28,11 +28,11 @@ public class BlurWorker extends Worker {
 
         Context applicationContext = getApplicationContext();
 
-        Bitmap picture = BitmapFactory.decodeResource(
-                applicationContext.getResources(),
-                R.drawable.test);
-
         try {
+            Bitmap picture = BitmapFactory.decodeResource(
+                    applicationContext.getResources(),
+                    R.drawable.android_cupcake);
+
             // Blur the bitmap
             Bitmap output = WorkerUtils.blurBitmap(picture, applicationContext);
 
