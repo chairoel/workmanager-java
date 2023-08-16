@@ -16,11 +16,13 @@
 
 package com.example.background;
 
+import static com.example.background.Constants.IMAGE_MANIPULATION_WORK_NAME;
 import static com.example.background.Constants.KEY_IMAGE_URI;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkContinuation;
 import androidx.work.WorkManager;
@@ -62,8 +64,14 @@ public class BlurViewModel extends ViewModel {
 //        mWorkManager.enqueue(blurRequest);
 
         // Add WorkRequest to Cleanup temporary images
-        WorkContinuation continuation =
-                mWorkManager.beginWith(OneTimeWorkRequest.from(CleanupWorker.class));
+        // REPLACE THIS CODE:
+        // WorkContinuation continuation = mWorkManager
+        //         .beginWith(OneTimeWorkRequest.from(CleanupWorker.class));
+        // WITH
+        WorkContinuation continuation = mWorkManager
+                .beginUniqueWork(IMAGE_MANIPULATION_WORK_NAME,
+                        ExistingWorkPolicy.REPLACE,
+                        OneTimeWorkRequest.from(CleanupWorker.class));
 
 //        // Add WorkRequest to blur the image
 //        OneTimeWorkRequest blurRequest = new OneTimeWorkRequest.Builder(BlurWorker.class)
